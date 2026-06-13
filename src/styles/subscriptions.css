@@ -1,0 +1,356 @@
+/* 구독 일정 관리 화면. seed 토큰 + 컴포넌트(.card/.btn/.badge/.chip) 위에 레이아웃만 정의. */
+
+.sub-main {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(2rem, 1rem + 4vw, 4.5rem) 20px 6rem;
+}
+
+.sub-app {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+}
+
+/* ── hero ── */
+.sub-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.sub-hero h1 {
+  font-size: clamp(1.9rem, 1.3rem + 2.4vw, 3rem);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+  color: var(--fg-strong);
+  margin: 0;
+}
+.sub-hero p {
+  max-width: 52ch;
+  color: var(--sub);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.sub-totals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 8px;
+}
+.sub-total {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: var(--radius);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+}
+.sub-total-k {
+  font-size: 0.8125rem;
+  color: var(--fg-subtle);
+  font-weight: 600;
+}
+.sub-total strong {
+  font-size: 1.5rem;
+  color: var(--fg-strong);
+  letter-spacing: -0.02em;
+}
+
+/* ── two-panel grid ── */
+.sub-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  align-items: start;
+}
+.sub-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sub-panel-h {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--fg-strong);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── inputs ── */
+.sub-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  outline: none;
+  transition: border-color var(--duration-instant) var(--ease-production);
+}
+.sub-input::placeholder {
+  color: var(--fg-disabled);
+}
+.sub-input:focus {
+  border-color: var(--primary);
+}
+
+.sub-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.sub-field > span {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--fg-subtle);
+}
+
+/* ── catalog (chips) ── */
+.sub-catalog {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 2px;
+}
+.sub-cat-chip {
+  padding-left: 7px;
+}
+.sub-cat-chip:hover {
+  border-color: var(--primary);
+  color: var(--fg);
+  transform: translateY(-1px);
+}
+
+/* ── avatar ── */
+.sub-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 7px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.sub-avatar.lg {
+  width: 44px;
+  height: 44px;
+  border-radius: 13px;
+  font-size: 20px;
+}
+
+/* ── add form ── */
+.sub-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sub-form-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sub-form-head strong {
+  display: block;
+  font-size: 1.0625rem;
+  color: var(--fg-strong);
+  margin-bottom: 6px;
+}
+.sub-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ── calendar ── */
+.sub-cal-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sub-cal-nav {
+  display: flex;
+  gap: 6px;
+}
+.sub-cal-nav .btn {
+  width: 36px;
+  padding: 0;
+  font-size: 18px;
+  line-height: 1;
+}
+.sub-cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.sub-cal-head {
+  margin-bottom: 6px;
+}
+.sub-cal-wd {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fg-subtle);
+  padding-bottom: 2px;
+}
+.sub-cal-cell {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: var(--bg-subtle);
+  border: 1px solid transparent;
+}
+.sub-cal-cell.empty {
+  background: transparent;
+}
+.sub-cal-cell.has {
+  background: var(--primary-subtle);
+  border-color: color-mix(in srgb, var(--primary) 22%, transparent);
+}
+.sub-cal-d {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--fg-muted);
+}
+.sub-cal-cell.has .sub-cal-d {
+  color: var(--primary);
+  font-weight: 700;
+}
+.sub-cal-dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  align-items: center;
+}
+.sub-cal-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+.sub-cal-more {
+  font-size: 0.625rem;
+  font-weight: 700;
+  color: var(--fg-subtle);
+}
+.sub-cal-skeleton {
+  aspect-ratio: 7 / 6;
+  border-radius: var(--radius);
+  background: var(--bg-subtle);
+}
+
+/* ── list ── */
+.sub-list-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sub-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sub-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+}
+.sub-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+.sub-row-main strong {
+  font-size: 0.9375rem;
+  color: var(--fg-strong);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sub-row-meta {
+  font-size: 0.8125rem;
+  color: var(--fg-subtle);
+}
+.sub-row-amt {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--fg-strong);
+  white-space: nowrap;
+}
+.sub-remove {
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  color: var(--fg-subtle);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--duration-instant) var(--ease-production);
+}
+.sub-remove:hover {
+  background: var(--danger-subtle);
+  color: var(--danger);
+}
+
+.sub-empty {
+  color: var(--fg-subtle);
+  font-size: 0.9375rem;
+  padding: 8px 2px;
+  margin: 0;
+}
+
+/* ── responsive ── */
+@media (max-width: 760px) {
+  .sub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 420px) {
+  .sub-totals {
+    grid-template-columns: 1fr;
+  }
+  .sub-row-amt {
+    font-size: 0.9375rem;
+  }
+}

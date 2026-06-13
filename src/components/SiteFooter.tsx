@@ -13,6 +13,7 @@ export function SiteFooter({ showHome = false }: SiteFooterProps) {
         <span>© 2026 이어서. All rights reserved. · gdpark.dev@gmail.com</span>
         <div className="links">
           {showHome && <Link href="/">홈</Link>}
+          <Link href="/subscriptions">구독 관리</Link>
           <Link href="/terms">이용약관</Link>
           <Link href="/privacy">개인정보처리방침</Link>
         </div>

@@ -6,6 +6,7 @@ import "@/styles/base.css";
 import "@/styles/landing.css";
 import "@/styles/phone.css";
 import "@/styles/doc.css";
+import "@/styles/subscriptions.css";
 
 const SITE_URL = "https://ieoseo.app";
 const TITLE = "이어서 — D-Day · 할 일 · 집중을 하나로";
