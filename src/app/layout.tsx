@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "@/styles/seed-tokens.css";
 import "@/styles/tokens.css";
+import "@/styles/seed-components.css";
 import "@/styles/base.css";
 import "@/styles/landing.css";
 import "@/styles/phone.css";

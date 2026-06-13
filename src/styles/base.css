@@ -29,40 +29,8 @@ img {
   font-family: "Wanted Sans Variable", "Wanted Sans", "Pretendard", sans-serif;
 }
 
-/* buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-family: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition:
-    background 0.15s,
-    transform 0.08s,
-    box-shadow 0.15s;
-  white-space: nowrap;
-}
-.btn-primary {
-  background: var(--blue);
-  color: #fff;
-  border-radius: 12px;
-  padding: 11px 20px;
-  font-size: 14.5px;
-}
-.btn-primary:hover {
-  background: #005eeb;
-}
-.btn-primary:active {
-  transform: translateY(1px);
-}
-.btn-lg {
-  padding: 15px 28px;
-  font-size: 16px;
-  border-radius: 14px;
-}
+/* buttons: seed-components.css (.btn / .btn-{size} / .btn-{variant}) 단일 소스.
+   앱 DkButton 과 같은 seed 스펙에서 생성된다. */
 
 /* shared header */
 .site-header {
