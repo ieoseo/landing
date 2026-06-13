@@ -3,6 +3,7 @@ import "@/styles/seed-tokens.css";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
 import "@/styles/landing.css";
+import "@/styles/phone.css";
 import "@/styles/doc.css";
 
 const SITE_URL = "https://ieoseo.app";
