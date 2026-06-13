@@ -1,0 +1,244 @@
+/* 약관/개인정보처리방침 문서 페이지 스타일 — terms.html / privacy.html 이식.
+   공유 셸(헤더/푸터/로고)은 base.css. */
+
+.doc-page {
+  line-height: 1.6;
+}
+
+/* ===== DOC HERO ===== */
+.doc-hero {
+  background: var(--band);
+  border-bottom: 1px solid var(--bd);
+  padding: 64px 0 56px;
+}
+.doc-hero .inner {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.kicker {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 14px;
+}
+.doc-hero h1 {
+  font-size: clamp(32px, 4.4vw, 44px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  margin: 0 0 16px;
+}
+.doc-hero p {
+  font-size: 16px;
+  color: var(--sub);
+  font-weight: 500;
+  margin: 0;
+  max-width: 620px;
+}
+.meta-row {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-top: 24px;
+  font-size: 13.5px;
+  color: var(--sub);
+  font-weight: 500;
+}
+.meta-row b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* ===== DOC BODY ===== */
+.doc {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 56px 24px 96px;
+}
+.toc {
+  background: var(--band);
+  border: 1px solid var(--bd);
+  border-radius: 20px;
+  padding: 24px 28px;
+  margin-bottom: 48px;
+}
+.toc h2 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sub);
+  margin: 0 0 16px;
+  letter-spacing: 0.02em;
+}
+.toc ol {
+  margin: 0;
+  padding-left: 20px;
+  columns: 2;
+  column-gap: 32px;
+}
+.toc li {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  break-inside: avoid;
+}
+.toc a {
+  color: var(--ink);
+}
+.toc a:hover {
+  color: var(--blue);
+}
+
+section.art {
+  margin-bottom: 42px;
+  scroll-margin-top: 84px;
+}
+section.art h2 {
+  font-size: 21px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 15px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+section.art h2 .no {
+  font-family: "Wanted Sans Variable", "Wanted Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #fff;
+  background: var(--blue);
+  min-width: 29px;
+  height: 29px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+section.art h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 24px 0 8px;
+}
+section.art p {
+  font-size: 15px;
+  color: #34363b;
+  font-weight: 500;
+  margin: 0 0 12px;
+  line-height: 1.62;
+}
+section.art b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* numbered clauses (terms) */
+section.art ol.clauses {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: c;
+}
+section.art ol.clauses > li {
+  font-size: 15px;
+  color: #34363b;
+  font-weight: 500;
+  margin-bottom: 11px;
+  padding-left: 30px;
+  position: relative;
+  line-height: 1.62;
+  counter-increment: c;
+}
+section.art ol.clauses > li::before {
+  content: "" counter(c);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 700;
+  color: var(--blue);
+  font-variant-numeric: tabular-nums;
+}
+
+/* bullet lists (privacy) */
+section.art ul {
+  margin: 0 0 14px;
+  padding-left: 0;
+  list-style: none;
+}
+section.art ul li {
+  font-size: 15px;
+  color: #34363b;
+  font-weight: 500;
+  margin-bottom: 9px;
+  padding-left: 20px;
+  position: relative;
+  line-height: 1.6;
+}
+section.art ul li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--blue);
+}
+
+/* tables (privacy) */
+table.tbl {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8px 0 16px;
+  font-size: 14px;
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  overflow: hidden;
+}
+table.tbl th {
+  background: var(--band);
+  text-align: left;
+  font-weight: 700;
+  color: var(--ink);
+  padding: 12px 16px;
+  font-size: 13.5px;
+  border-bottom: 1px solid var(--bd);
+}
+table.tbl td {
+  padding: 12px 16px;
+  color: #34363b;
+  font-weight: 500;
+  border-bottom: 1px solid var(--bd);
+  vertical-align: top;
+}
+table.tbl tr:last-child td {
+  border-bottom: none;
+}
+table.tbl td:first-child {
+  font-weight: 700;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* callout (privacy) */
+.callout {
+  background: rgba(0, 102, 255, 0.05);
+  border: 1px solid rgba(0, 102, 255, 0.16);
+  border-radius: 16px;
+  padding: 18px 22px;
+  margin: 8px 0 16px;
+}
+.callout p {
+  margin: 0;
+  font-size: 14.5px;
+  color: #34363b;
+}
+.callout b {
+  color: var(--blue);
+}
+
+@media (max-width: 640px) {
+  .toc ol {
+    columns: 1;
+  }
+}

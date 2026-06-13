@@ -1,0 +1,12 @@
+/* 이어서 랜딩 디자인 토큰 — 핸드오프 index.html / terms.html / privacy.html의 :root 값 단일 출처. */
+:root {
+  --blue: #0066ff;
+  --blue-deep: #0a4fd6;
+  --blue-subtle: rgba(0, 102, 255, 0.08);
+  --ink: #16181d;
+  --sub: rgba(55, 56, 60, 0.62);
+  --bd: rgba(112, 115, 124, 0.2);
+  --band: #f7f7f8;
+  --card: #fff;
+  --maxw: 1120px;
+}
