@@ -1,6 +1,13 @@
+import { seedIcons } from "@/lib/seedIcons";
+
 type IconProps = { className?: string };
 
-/** Lucide-style check — used in showcase bullet lists and the time-debt flow. */
+/** seed 의 path d(서브패스가 ' M' 으로 이어짐)를 개별 <path> 로 분리. */
+function subpaths(d: string): string[] {
+  return d.split(" M").map((p, i) => (i === 0 ? p : "M" + p));
+}
+
+/** Lucide-style check — seed `check`. 쇼케이스 리스트 / 시간-부채 완료. */
 export function CheckIcon({ className, strokeWidth = 2.4 }: IconProps & { strokeWidth?: number }) {
   return (
     <svg
@@ -13,12 +20,14 @@ export function CheckIcon({ className, strokeWidth = 2.4 }: IconProps & { stroke
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M20 6 9 17l-5-5" />
+      {subpaths(seedIcons.check).map((d, i) => (
+        <path key={i} d={d} />
+      ))}
     </svg>
   );
 }
 
-/** Carry-forward (달력 + 앞으로 향하는 화살표) — 시간 빌려쓰기 흐름의 이월 아이콘. */
+/** 이월 흐름 화살표 — seed `repeat`. 시간 빌려쓰기 흐름. */
 export function CarryForwardIcon({ className }: IconProps) {
   return (
     <svg
@@ -31,12 +40,14 @@ export function CarryForwardIcon({ className }: IconProps) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M17 2l4 4-4 4M3 11V9a4 4 0 0 1 4-4h14M7 22l-4-4 4-4M21 13v2a4 4 0 0 1-4 4H3" />
+      {subpaths(seedIcons.repeat).map((d, i) => (
+        <path key={i} d={d} />
+      ))}
     </svg>
   );
 }
 
-/** Apple logo glyph (App Store badge). */
+/** Apple logo glyph (App Store badge) — seed `dist/svg/provider/apple.svg` 와 동일 path. */
 export function AppleGlyph({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -45,7 +56,7 @@ export function AppleGlyph({ className }: IconProps) {
   );
 }
 
-/** Google Play triangle glyph (Google Play badge). */
+/** Google Play triangle glyph (Google Play badge) — seed `dist/svg/provider/google-play.svg` 와 동일. */
 export function GooglePlayGlyph({ className }: IconProps) {
   return (
     <svg className={className} viewBox="0 0 24 24" aria-hidden="true">
