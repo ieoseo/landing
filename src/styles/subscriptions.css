@@ -1,12 +1,7 @@
-/* 구독 일정 관리 화면. seed 토큰 + 컴포넌트(.card/.btn/.badge/.chip) 위에 레이아웃만 정의. */
-
-.sub-main {
-  max-width: var(--maxw);
-  margin: 0 auto;
-  padding: clamp(2rem, 1rem + 4vw, 4.5rem) 20px 6rem;
-}
+/* 구독 일정 관리(홈 섹션). seed 토큰 + 컴포넌트(.card/.btn/.badge/.chip) 위에 레이아웃만 정의. */
 
 .sub-app {
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.5rem);
   display: flex;
   flex-direction: column;
   gap: clamp(1.5rem, 1rem + 2vw, 2.75rem);
