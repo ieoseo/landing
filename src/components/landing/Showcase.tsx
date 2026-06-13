@@ -14,7 +14,7 @@ type ShowRow = {
 const ROWS: ShowRow[] = [
   {
     tag: "오늘",
-    tagStyle: { background: "rgba(0,102,255,0.08)", color: "var(--blue)" },
+    tagStyle: { background: "var(--blue-subtle)", color: "var(--blue)" },
     title: ["오늘 할 일을", "열자마자 한눈에"],
     desc: "가장 임박한 D-Day, 오늘 진행률, 그날의 할 일 흐름이 첫 화면에 모여요. 무엇부터 할지 고민할 필요 없이 바로 시작해요.",
     items: ["히어로 D-Day 카드와 주간 진행률", "마감 D-Day 레일 · 오늘의 흐름 타임라인"],
@@ -22,7 +22,7 @@ const ROWS: ShowRow[] = [
   },
   {
     tag: "시간 빌려쓰기",
-    tagStyle: { background: "rgba(255,146,0,0.12)", color: "#B86200" },
+    tagStyle: { background: "var(--hue-orange-subtle)", color: "var(--warning-fg)" },
     title: ["못 한 일은", "여유 있는 날로 이어서"],
     desc: "주간 계획·완료·밀린 시간을 집계하고, 끝내지 못한 일은 '미룬 시간'으로 쌓여 자동으로 이월돼요. 배정됨·계속 밀림 상태까지 한눈에 봐요.",
     items: ["주간 시간 요약과 미룬 시간 현황", "자동·수동 이월, 옮긴 할 일 표시"],
@@ -31,7 +31,7 @@ const ROWS: ShowRow[] = [
   },
   {
     tag: "집중",
-    tagStyle: { background: "rgba(0,102,255,0.08)", color: "var(--blue)" },
+    tagStyle: { background: "var(--blue-subtle)", color: "var(--blue)" },
     title: ["집중해서", "진짜로 끝내요"],
     desc: "포모도로 타이머로 할 일을 실제로 실행하게 도와요. 집중·휴식 사이클, 오늘 집중 통계, 4가지 타이머 스킨까지.",
     items: ["실시간 카운트다운 · 오늘 집중 통계", "할 일 연동 · 링/미니멀/리퀴드/플립 스킨"],
@@ -39,7 +39,7 @@ const ROWS: ShowRow[] = [
   },
   {
     tag: "플랜",
-    tagStyle: { background: "rgba(0,174,255,0.12)", color: "#0079C2" },
+    tagStyle: { background: "var(--hue-sky-subtle)", color: "var(--info-fg)" },
     title: ["캘린더까지", "한 화면에"],
     desc: "앱 안 일정과 Google·Apple·Notion 외부 일정을 한 곳에. 월·주·일 뷰로 출처까지 색으로 구분해서 보여줘요.",
     items: ["월·주·일 뷰 통합 캘린더", "외부 캘린더 출처별 색상 구분"],
