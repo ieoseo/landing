@@ -20,8 +20,13 @@ function uid(): string {
   return "s" + Math.random().toString(36).slice(2);
 }
 
+interface Props {
+  /** true면 내부 히어로(배지·제목·설명)를 숨긴다 — 홈 섹션이 제목을 제공할 때. */
+  embedded?: boolean;
+}
+
 /** 구독 관리 — 카탈로그 검색 → 금액 수동 설정 → 캘린더 확인. 상태는 localStorage. */
-export function SubscriptionManager() {
+export function SubscriptionManager({ embedded = false }: Props) {
   const [mounted, setMounted] = useState(false);
   const [subs, setSubs] = useState<Subscription[]>([]);
   const [query, setQuery] = useState("");
@@ -91,27 +96,30 @@ export function SubscriptionManager() {
 
   return (
     <div className="sub-app">
-      <header className="sub-hero">
-        <span className="badge badge-primary">구독 일정 관리</span>
-        <h1>흩어진 구독, 한 캘린더에서</h1>
-        <p>
-          쓰고 있는 구독을 골라 금액만 정하면, 매달 언제 얼마가 빠져나가는지 한눈에 봐요. 결제일이 캘린더에 모여요.
-        </p>
-        <div className="sub-totals">
-          <div className="sub-total">
-            <span className="sub-total-k">월 합계</span>
-            <strong className="brand-font">{formatKRW(monthlyTotal)}</strong>
-          </div>
-          <div className="sub-total">
-            <span className="sub-total-k">연 환산</span>
-            <strong className="brand-font">{formatKRW(yearlyTotal)}</strong>
-          </div>
-          <div className="sub-total">
-            <span className="sub-total-k">구독 수</span>
-            <strong className="brand-font">{subs.length}</strong>
-          </div>
+      {!embedded && (
+        <header className="sub-hero">
+          <span className="badge badge-primary">구독 일정 관리</span>
+          <h2>흩어진 구독, 한 캘린더에서</h2>
+          <p>
+            쓰고 있는 구독을 골라 금액만 정하면, 매달 언제 얼마가 빠져나가는지 한눈에 봐요. 결제일이 캘린더에 모여요.
+          </p>
+        </header>
+      )}
+
+      <div className="sub-totals">
+        <div className="sub-total">
+          <span className="sub-total-k">월 합계</span>
+          <strong className="brand-font">{formatKRW(monthlyTotal)}</strong>
         </div>
-      </header>
+        <div className="sub-total">
+          <span className="sub-total-k">연 환산</span>
+          <strong className="brand-font">{formatKRW(yearlyTotal)}</strong>
+        </div>
+        <div className="sub-total">
+          <span className="sub-total-k">구독 수</span>
+          <strong className="brand-font">{subs.length}</strong>
+        </div>
+      </div>
 
       <div className="sub-grid">
         <section className="card sub-panel" aria-labelledby="sub-add-h">
