@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { seedIcons } from "@/lib/seedIcons";
 import {
   CATALOG,
   CATEGORY_META,
@@ -15,18 +16,32 @@ import { SubscriptionCalendar } from "./SubscriptionCalendar";
 
 const MONTHS = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
 
+const NAV: ReadonlyArray<readonly [keyof typeof seedIcons, string]> = [
+  ["home", "오늘"],
+  ["calendar", "플랜"],
+  ["focus", "집중"],
+  ["user", "나"],
+];
+
 function uid(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) return crypto.randomUUID();
   return "s" + Math.random().toString(36).slice(2);
 }
 
-interface Props {
-  /** true면 내부 히어로(배지·제목·설명)를 숨긴다 — 홈 섹션이 제목을 제공할 때. */
-  embedded?: boolean;
+/** seed path(서브패스 ' M')를 stroke svg 로 렌더. */
+function Icon({ name, sw = 1.9 }: { name: keyof typeof seedIcons; sw?: number }) {
+  const d = seedIcons[name] ?? "";
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {d.split(" M").map((p, i) => (
+        <path key={i} d={i === 0 ? p : "M" + p} />
+      ))}
+    </svg>
+  );
 }
 
-/** 구독 관리 — 카탈로그 검색 → 금액 수동 설정 → 캘린더 확인. 상태는 localStorage. */
-export function SubscriptionManager({ embedded = false }: Props) {
+/** 구독 관리 — 폰 기기 프레임 안 인터랙티브 앱 화면. 상태는 localStorage(서버 API 미가용). */
+export function SubscriptionManager() {
   const [mounted, setMounted] = useState(false);
   const [subs, setSubs] = useState<Subscription[]>([]);
   const [query, setQuery] = useState("");
@@ -35,7 +50,6 @@ export function SubscriptionManager({ embedded = false }: Props) {
   const [billingDay, setBillingDay] = useState("1");
   const [cursor, setCursor] = useState({ y: 2026, m: 0 });
 
-  // 마운트 후에만 localStorage·현재 달을 읽어 하이드레이션 불일치를 피한다.
   useEffect(() => {
     setSubs(loadSubscriptions());
     const now = new Date();
@@ -49,8 +63,7 @@ export function SubscriptionManager({ embedded = false }: Props) {
 
   const results = useMemo(() => {
     const q = query.trim().toLowerCase();
-    if (!q) return CATALOG;
-    return CATALOG.filter((c) => c.name.toLowerCase().includes(q));
+    return q ? CATALOG.filter((c) => c.name.toLowerCase().includes(q)) : CATALOG;
   }, [query]);
 
   const monthlyTotal = useMemo(() => subs.reduce((sum, s) => sum + s.amount, 0), [subs]);
@@ -68,15 +81,7 @@ export function SubscriptionManager({ embedded = false }: Props) {
     const day = Math.min(31, Math.max(1, Math.round(Number(billingDay) || 1)));
     setSubs((prev) => [
       ...prev,
-      {
-        id: uid(),
-        serviceId: picked.id,
-        name: picked.name,
-        color: picked.color,
-        category: picked.category,
-        amount: amt,
-        billingDay: day,
-      },
+      { id: uid(), serviceId: picked.id, name: picked.name, color: picked.color, category: picked.category, amount: amt, billingDay: day },
     ]);
     setPicked(null);
     setAmount("");
@@ -95,171 +100,140 @@ export function SubscriptionManager({ embedded = false }: Props) {
   }
 
   return (
-    <div className="sub-app">
-      {!embedded && (
-        <header className="sub-hero">
-          <span className="badge badge-primary">구독 일정 관리</span>
-          <h2>흩어진 구독, 한 캘린더에서</h2>
-          <p>
-            쓰고 있는 구독을 골라 금액만 정하면, 매달 언제 얼마가 빠져나가는지 한눈에 봐요. 결제일이 캘린더에 모여요.
-          </p>
-        </header>
-      )}
-
-      <div className="sub-totals">
-        <div className="sub-total">
-          <span className="sub-total-k">월 합계</span>
-          <strong className="brand-font">{formatKRW(monthlyTotal)}</strong>
-        </div>
-        <div className="sub-total">
-          <span className="sub-total-k">연 환산</span>
-          <strong className="brand-font">{formatKRW(yearlyTotal)}</strong>
-        </div>
-        <div className="sub-total">
-          <span className="sub-total-k">구독 수</span>
-          <strong className="brand-font">{subs.length}</strong>
-        </div>
-      </div>
-
-      <div className="sub-grid">
-        <section className="card sub-panel" aria-labelledby="sub-add-h">
-          <h2 id="sub-add-h" className="sub-panel-h">
-            구독 추가
-          </h2>
-          <input
-            className="sub-input"
-            type="search"
-            inputMode="search"
-            placeholder="서비스 검색 (예: Netflix, ChatGPT)"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            aria-label="구독 서비스 검색"
-          />
-
-          {!picked ? (
-            <div className="sub-catalog" role="listbox" aria-label="구독 카탈로그">
-              {results.map((c) => (
-                <button
-                  key={c.id}
-                  type="button"
-                  className="chip sub-cat-chip"
-                  onClick={() => pick(c)}
-                >
-                  <span className="sub-avatar" style={{ background: c.color }} aria-hidden="true">
-                    {initialOf(c.name)}
-                  </span>
-                  {c.name}
-                </button>
-              ))}
-              {results.length === 0 && <p className="sub-empty">검색 결과가 없어요.</p>}
-            </div>
-          ) : (
-            <div className="sub-form">
-              <div className="sub-form-head">
-                <span className="sub-avatar lg" style={{ background: picked.color }} aria-hidden="true">
-                  {initialOf(picked.name)}
-                </span>
-                <div>
-                  <strong>{picked.name}</strong>
-                  <span className={`badge badge-${CATEGORY_META[picked.category].tone}`}>
-                    {CATEGORY_META[picked.category].label}
-                  </span>
-                </div>
-              </div>
-
-              <label className="sub-field">
-                <span>월 금액 (원)</span>
-                <input
-                  className="sub-input"
-                  type="number"
-                  min={0}
-                  step={100}
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="직접 입력"
-                />
-              </label>
-
-              <label className="sub-field">
-                <span>매월 결제일</span>
-                <input
-                  className="sub-input"
-                  type="number"
-                  min={1}
-                  max={31}
-                  value={billingDay}
-                  onChange={(e) => setBillingDay(e.target.value)}
-                />
-              </label>
-
-              <div className="sub-form-actions">
-                <button type="button" className="btn btn-outline btn-md" onClick={() => setPicked(null)}>
-                  취소
-                </button>
-                <button type="button" className="btn btn-primary btn-md" onClick={add}>
-                  추가
-                </button>
-              </div>
-            </div>
-          )}
-        </section>
-
-        <section className="card sub-panel" aria-labelledby="sub-cal-h">
-          <div className="sub-cal-bar">
-            <h2 id="sub-cal-h" className="sub-panel-h">
-              {cursor.y}년 {MONTHS[cursor.m]}
-            </h2>
-            <div className="sub-cal-nav">
-              <button type="button" className="btn btn-outline btn-sm" onClick={() => shiftMonth(-1)} aria-label="이전 달">
-                ‹
-              </button>
-              <button type="button" className="btn btn-outline btn-sm" onClick={() => shiftMonth(1)} aria-label="다음 달">
-                ›
-              </button>
-            </div>
+    <div className="subp-device">
+      <div className="subp-screen">
+        <div className="subp">
+          <div className="subp-status">
+            <span>9:41</span>
+            <span className="pill" />
+            <span className="sig">
+              <i />
+            </span>
           </div>
-          {mounted ? (
-            <SubscriptionCalendar year={cursor.y} month={cursor.m} subs={subs} />
-          ) : (
-            <div className="sub-cal-skeleton" aria-hidden="true" />
-          )}
-        </section>
-      </div>
 
-      <section className="sub-list-wrap" aria-labelledby="sub-list-h">
-        <h2 id="sub-list-h" className="sub-panel-h">
-          내 구독 {subs.length > 0 && <span className="sub-count">{subs.length}</span>}
-        </h2>
-        {subs.length === 0 ? (
-          <p className="sub-empty">아직 등록한 구독이 없어요. 위에서 검색해 추가해 보세요.</p>
-        ) : (
-          <ul className="sub-list">
-            {sorted.map((s) => (
-              <li key={s.id} className="card sub-row">
-                <span className="sub-avatar" style={{ background: s.color }} aria-hidden="true">
-                  {initialOf(s.name)}
-                </span>
-                <div className="sub-row-main">
-                  <strong>{s.name}</strong>
-                  <span className="sub-row-meta">매월 {s.billingDay}일</span>
+          <div className="subp-body">
+            <div className="subp-top">
+              <div className="subp-eyebrow">정기결제, 흩어지지 않게</div>
+              <div className="subp-h">구독 관리</div>
+            </div>
+
+            <div className="subp-totals">
+              <div className="subp-total">
+                <span>월 합계</span>
+                <strong className="brand-font">{formatKRW(monthlyTotal)}</strong>
+              </div>
+              <div className="subp-total">
+                <span>연 환산</span>
+                <strong className="brand-font">{formatKRW(yearlyTotal)}</strong>
+              </div>
+              <div className="subp-total">
+                <span>구독</span>
+                <strong className="brand-font">{subs.length}</strong>
+              </div>
+            </div>
+
+            {!picked ? (
+              <>
+                <input
+                  className="subp-input"
+                  type="search"
+                  inputMode="search"
+                  placeholder="서비스 검색 (예: Netflix)"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  aria-label="구독 서비스 검색"
+                />
+                <div className="subp-cat" role="listbox" aria-label="구독 카탈로그">
+                  {results.map((c) => (
+                    <button key={c.id} type="button" className="chip subp-chip" onClick={() => pick(c)}>
+                      <span className="subp-avatar" style={{ background: c.color }} aria-hidden="true">
+                        {initialOf(c.name)}
+                      </span>
+                      {c.name}
+                    </button>
+                  ))}
+                  {results.length === 0 && <p className="subp-empty">검색 결과가 없어요.</p>}
                 </div>
-                <span className={`badge badge-${CATEGORY_META[s.category].tone}`}>
-                  {CATEGORY_META[s.category].label}
-                </span>
-                <span className="sub-row-amt brand-font">{formatKRW(s.amount)}</span>
-                <button
-                  type="button"
-                  className="sub-remove"
-                  onClick={() => remove(s.id)}
-                  aria-label={`${s.name} 삭제`}
-                >
-                  ×
+              </>
+            ) : (
+              <div className="subp-form">
+                <div className="subp-form-head">
+                  <span className="subp-avatar lg" style={{ background: picked.color }} aria-hidden="true">
+                    {initialOf(picked.name)}
+                  </span>
+                  <div>
+                    <strong>{picked.name}</strong>
+                    <span className={`badge badge-${CATEGORY_META[picked.category].tone}`}>{CATEGORY_META[picked.category].label}</span>
+                  </div>
+                </div>
+                <label className="subp-field">
+                  <span>월 금액 (원)</span>
+                  <input className="subp-input" type="number" min={0} step={100} value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="직접 입력" />
+                </label>
+                <label className="subp-field">
+                  <span>매월 결제일</span>
+                  <input className="subp-input" type="number" min={1} max={31} value={billingDay} onChange={(e) => setBillingDay(e.target.value)} />
+                </label>
+                <div className="subp-actions">
+                  <button type="button" className="btn btn-outline btn-md" onClick={() => setPicked(null)}>
+                    취소
+                  </button>
+                  <button type="button" className="btn btn-primary btn-md" onClick={add}>
+                    추가
+                  </button>
+                </div>
+              </div>
+            )}
+
+            <div className="subp-secbar">
+              <span className="subp-sec">
+                {cursor.y}년 {MONTHS[cursor.m]} 결제
+              </span>
+              <div className="subp-monthnav">
+                <button type="button" onClick={() => shiftMonth(-1)} aria-label="이전 달">
+                  ‹
                 </button>
-              </li>
+                <button type="button" onClick={() => shiftMonth(1)} aria-label="다음 달">
+                  ›
+                </button>
+              </div>
+            </div>
+            {mounted ? <SubscriptionCalendar year={cursor.y} month={cursor.m} subs={subs} /> : <div className="subp-cal-skel" aria-hidden="true" />}
+
+            <div className="subp-sec">내 구독{subs.length > 0 && <span className="subp-count">{subs.length}</span>}</div>
+            {subs.length === 0 ? (
+              <p className="subp-empty">위에서 서비스를 골라 추가해 보세요.</p>
+            ) : (
+              <ul className="subp-list">
+                {sorted.map((s) => (
+                  <li key={s.id} className="subp-row">
+                    <span className="subp-avatar" style={{ background: s.color }} aria-hidden="true">
+                      {initialOf(s.name)}
+                    </span>
+                    <div className="subp-row-main">
+                      <strong>{s.name}</strong>
+                      <span>매월 {s.billingDay}일</span>
+                    </div>
+                    <span className="subp-row-amt brand-font">{formatKRW(s.amount)}</span>
+                    <button type="button" className="subp-remove" onClick={() => remove(s.id)} aria-label={`${s.name} 삭제`}>
+                      ×
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className="subp-nav">
+            {NAV.map(([icon, label]) => (
+              <a key={label} className={label === "나" ? "on" : undefined}>
+                <Icon name={icon} sw={2} />
+                <span>{label}</span>
+              </a>
             ))}
-          </ul>
-        )}
-      </section>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
