@@ -23,6 +23,12 @@
 .ps * {
   box-sizing: border-box;
 }
+/* <i>/<em> 는 폰 목업에서 레이아웃·시맨틱 컨테이너로만 쓰임 —
+   기본 italic 으로 Wanted Sans 숫자가 faux-italic(가짜 기울임) 되는 것 방지. */
+.ps i,
+.ps em {
+  font-style: normal;
+}
 .ps-brand {
   font-family: "Wanted Sans Variable", "Wanted Sans", "Pretendard", sans-serif;
 }
