@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { seedFonts } from "@/lib/seedFonts";
 import "@/styles/seed-tokens.css";
 import "@/styles/tokens.css";
 import "@/styles/seed-components.css";
@@ -57,13 +58,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-const PRETENDARD_CSS =
-  "https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard-dynamic-subset.css";
-const WANTED_SANS_CSS =
-  "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/WantedSansVariable.css";
-const WANTED_SANS_WOFF2 =
-  "https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/complete/woff2/WantedSansVariable.woff2";
-
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     // suppressHydrationWarning: the before-paint script adds `js` to <html>,
@@ -75,16 +69,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
         {/* React 19 hoists these <link>s into <head> and dedupes them. */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        {/* 큰 숫자/브랜드 폰트(Wanted Sans)를 페인트 전에 로드해 Pretendard 폴백을 막는다. */}
+        {/* 폰트 로딩 소스는 seed-design 단일 소스(seedFonts). 큰 숫자 폰트는 페인트 전 preload. */}
         <link
           rel="preload"
-          href={WANTED_SANS_WOFF2}
+          href={seedFonts.wantedSansWoff2}
           as="font"
           type="font/woff2"
           crossOrigin="anonymous"
         />
-        <link rel="stylesheet" href={PRETENDARD_CSS} />
-        <link rel="stylesheet" href={WANTED_SANS_CSS} />
+        <link rel="stylesheet" href={seedFonts.pretendardCss} />
+        <link rel="stylesheet" href={seedFonts.wantedSansCss} />
         {children}
       </body>
     </html>
