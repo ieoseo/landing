@@ -103,14 +103,6 @@ export function SubscriptionManager() {
     <div className="subp-device">
       <div className="subp-screen">
         <div className="subp">
-          <div className="subp-status">
-            <span>9:41</span>
-            <span className="pill" />
-            <span className="sig">
-              <i />
-            </span>
-          </div>
-
           <div className="subp-body">
             <div className="subp-top">
               <div className="subp-eyebrow">정기결제, 흩어지지 않게</div>
