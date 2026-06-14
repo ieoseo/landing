@@ -31,18 +31,6 @@ function SeedIcon({
   );
 }
 
-function StatusBar() {
-  return (
-    <div className="ps-status">
-      <span>9:41</span>
-      <span className="pill" />
-      <span className="sig">
-        <i />
-      </span>
-    </div>
-  );
-}
-
 const NAV: ReadonlyArray<readonly [keyof typeof seedIcons, string]> = [
   ["home", "오늘"],
   ["calendar", "플랜"],
@@ -74,7 +62,6 @@ function Fab() {
 function Today() {
   return (
     <div className="ps">
-      <StatusBar />
       <div className="ps-body">
         <div className="ps-cockpit">
           <div className="blob" />
@@ -195,7 +182,6 @@ function PlanHeader() {
 function Tasks() {
   return (
     <div className="ps">
-      <StatusBar />
       <div className="ps-body">
         <PlanHeader />
         <div className="ps-seg" style={{ margin: "10px 0" }}>
@@ -288,7 +274,6 @@ function Tasks() {
 function Focus() {
   return (
     <div className="ps">
-      <StatusBar />
       <div className="ps-body">
         <div className="ps-row" style={{ marginTop: 2 }}>
           <div>
@@ -398,7 +383,6 @@ const DOT: Record<string, string> = {
 function Plan() {
   return (
     <div className="ps">
-      <StatusBar />
       <div className="ps-body">
         <PlanHeader />
         <div className="ps-seg" style={{ margin: "10px 0 8px" }}>
