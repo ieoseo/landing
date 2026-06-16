@@ -277,7 +277,7 @@ function Focus() {
       <div className="ps-body">
         <div className="ps-row" style={{ marginTop: 2 }}>
           <div>
-            <div className="ps-eyebrow">포모도로로 실제로 실행해요</div>
+            <div className="ps-eyebrow">뽀모도로로 실제로 실행해요</div>
             <div className="ps-h">집중</div>
           </div>
           <div className="ps-plus" style={{ background: "var(--bg-subtle)", color: "var(--fg-muted)" }}>
@@ -336,15 +336,16 @@ function Focus() {
   );
 }
 
+// 이어서 출처(app)는 카테고리와 무관하게 단일 파랑 점, 외부 연동만 각 출처색(현재 앱과 일치).
 const CAL: ReadonlyArray<readonly [number | null, string[]]> = [
   [null, []],
-  [1, ["app", "google", "apple"]],
+  [1, ["app", "app"]],
   [2, ["google"]],
   [3, ["app", "notion"]],
   [4, ["google"]],
   [5, ["app"]],
   [6, ["apple", "google"]],
-  [7, ["cool"]],
+  [7, ["app"]],
   [8, ["google"]],
   [9, []],
   [10, ["notion"]],
@@ -353,19 +354,19 @@ const CAL: ReadonlyArray<readonly [number | null, string[]]> = [
   [13, ["notion"]],
   [14, []],
   [15, []],
-  [16, []],
-  [17, []],
-  [18, ["danger"]],
+  [16, ["app", "app"]],
+  [17, ["google"]],
+  [18, ["app"]],
   [19, []],
-  [20, ["warning"]],
+  [20, ["app"]],
   [21, []],
   [22, []],
   [23, []],
   [24, []],
   [25, []],
-  [26, ["cool"]],
+  [26, ["app"]],
   [27, []],
-  [28, ["cool"]],
+  [28, ["app"]],
   [29, ["app"]],
   [30, []],
 ];
@@ -375,9 +376,6 @@ const DOT: Record<string, string> = {
   google: "var(--source-google)",
   apple: "var(--source-apple)",
   notion: "var(--source-notion)",
-  cool: "var(--hue-cool)",
-  danger: "var(--danger)",
-  warning: "var(--warning)",
 };
 
 function Plan() {
@@ -394,10 +392,6 @@ function Plan() {
           <span>주간</span>
           <span>일간</span>
         </div>
-        <div className="ps-sync">
-          <SeedIcon name="sync" strokeWidth={2} />
-          Google · Apple · Notion 연동됨 · 방금 동기화
-        </div>
         <div className="ps-cal">
           <div className="hd">
             {["일", "월", "화", "수", "목", "금", "토"].map((d, i) => (
@@ -410,9 +404,9 @@ function Plan() {
             {CAL.map(([n, dots], i) => (
               <span
                 key={i}
-                className={[n === 1 ? "sel" : "", n !== null && i % 7 === 0 ? "sun" : ""].join(" ").trim() || undefined}
+                className={[n === 16 ? "sel" : "", n !== null && i % 7 === 0 ? "sun" : ""].join(" ").trim() || undefined}
               >
-                {n === null ? "" : n === 1 ? <u>1</u> : n}
+                {n === null ? "" : n === 16 ? <u>16</u> : n}
                 {dots.length > 0 && (
                   <span className="dots">
                     {dots.map((c, j) => (
@@ -426,7 +420,7 @@ function Plan() {
         </div>
 
         <div className="ps-sec ps-row">
-          <span>6월 1일 (월)</span>
+          <span>6월 16일 (화)</span>
           <span className="more">오늘 ›</span>
         </div>
         <div className="ps-evt">
@@ -437,7 +431,7 @@ function Plan() {
               <small>1시간 30분</small>
             </div>
           </div>
-          <div className="e v">
+          <div className="e">
             <span className="l" />
             <div className="tx">
               <b>영단어 30개 암기</b>
