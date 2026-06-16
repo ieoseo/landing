@@ -20,7 +20,7 @@ npm run build    # 정적 export → out/
 ## 구조 / 스타일
 
 - 페이지: `src/app/{page,terms/page,privacy/page}.tsx`. 셸: `SiteHeader`/`SiteFooter`. 랜딩 섹션: `src/components/landing/*`.
-- **구독 일정 관리**: 홈(`/`) 안 섹션(`#subscriptions`, `src/components/landing/Subscriptions.tsx`)으로 제공 — 정해진 카탈로그 검색 → 금액 수동 설정 → 월 캘린더로 결제일 확인. 구현은 `src/components/subscriptions/*`(client, `SubscriptionManager embedded`) + `src/lib/subscriptions.ts`(카탈로그·localStorage). 서버 API 미가용이라 상태는 **localStorage 전용**(정적 export 제약 준수, 서버 기능 없음). seed `.btn/.card/.badge/.chip` 소비.
+- **구독 일정 관리(제거됨)**: 랜딩의 구독 섹션은 제거했다(앱에서도 "준비 중" 기능이라 마케팅에서 제외). 관련 컴포넌트(`landing/Subscriptions.tsx`·`subscriptions/*`)·`lib/subscriptions.ts`·`styles/subscriptions.css`·푸터 링크·`#subscriptions` 앵커는 모두 삭제. 재도입 시 정적 export 제약(서버 기능 없음 → localStorage 전용)을 다시 적용한다.
 - CSS는 **custom properties 토큰**(`src/styles/tokens.css`) + 기능별 파일(`base`/`landing`/`doc`). 전역 import는 `layout.tsx`에서만. 색/간격 하드코딩 대신 토큰 사용.
 - 모션은 **`opacity`/`transform`만**(compositor 친화). 스크롤 리빌은 `RevealController`(클라이언트) + `.reveal` 클래스, `prefers-reduced-motion` 존중. 레이아웃 속성 애니메이트 금지.
 - 폰트: Pretendard(dynamic subset CDN) + Wanted Sans(`.brand-font`, 큰 숫자/로고/통계). `layout.tsx`의 `<link>`로 로드(React 19 hoist).
