@@ -17,8 +17,8 @@ export default function Home() {
         <Hero />
         <Trust />
         <Showcase />
-        <Features />
         <TimeDebt />
+        <Features />
         <Steps />
         <CtaBand />
       </main>

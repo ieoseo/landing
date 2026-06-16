@@ -11,7 +11,7 @@ export function CtaBand() {
             <br />
             자기관리를 시작해요
           </h2>
-          <p>App Store와 Google Play에서 만나요. 평생 무료로 제공돼요.</p>
+          <p>곧 App Store와 Google Play에서 만나요. 지금은 Android 내부 테스트 중이에요.</p>
           <div className="cta-stores">
             <StoreBadges dark />
           </div>

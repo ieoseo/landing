@@ -34,11 +34,11 @@
   background: var(--blue);
 }
 .hero h1 {
-  font-size: clamp(40px, 5.2vw, 60px);
+  font-size: clamp(44px, 6.2vw, 74px);
   font-weight: 800;
-  letter-spacing: -0.045em;
-  line-height: 1.08;
-  margin: 0 0 22px;
+  letter-spacing: -0.052em;
+  line-height: 1.04;
+  margin: 0 0 24px;
 }
 .hero h1 .accent {
   color: var(--blue);
@@ -187,6 +187,28 @@ section.block {
   line-height: 1.6;
   margin: 0;
 }
+/* 에디토리얼 좌측 정렬 헤더 — 모든 섹션을 가운데로 몰지 않는다(의도적 비대칭). */
+.sec-head.left {
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;
+  max-width: 720px;
+}
+.sec-head.left .sec-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+}
+.sec-head.left .sec-tag::before {
+  content: "";
+  width: 22px;
+  height: 2px;
+  background: var(--blue);
+  border-radius: 2px;
+}
+.sec-head h2 {
+  text-wrap: balance;
+}
 
 /* ===== TIME-DEBT HIGHLIGHT (ink dark) ===== */
 .debt {
@@ -212,11 +234,11 @@ section.block {
   margin-bottom: 20px;
 }
 .debt h3 {
-  font-size: 32px;
+  font-size: clamp(32px, 4vw, 46px);
   font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.22;
-  margin: 0 0 18px;
+  letter-spacing: -0.04em;
+  line-height: 1.14;
+  margin: 0 0 20px;
 }
 .debt p {
   font-size: 16px;
@@ -304,6 +326,45 @@ section.block {
 .fcard svg {
   width: 26px;
   height: 26px;
+}
+
+/* ===== DETAIL GRID — zoomed-in secondary capabilities ===== */
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px 28px;
+}
+.dcard {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 22px 4px;
+  border-top: 1px solid var(--bd);
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dcard:hover {
+  transform: translateX(3px);
+}
+.dcard .dic {
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--blue);
+}
+.dcard h3 {
+  font-size: 16.5px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+  color: var(--ink);
+}
+.dcard p {
+  font-size: 14px;
+  color: var(--sub);
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
 }
 
 /* ===== SHOWCASE — alternating screenshot rows ===== */
@@ -416,19 +477,18 @@ section.block {
   position: relative;
   padding-top: 8px;
 }
+.step {
+  border-top: 2px solid var(--ink);
+  padding-top: 18px;
+}
 .step .num {
   font-family: "Wanted Sans Variable", "Wanted Sans", sans-serif;
-  font-size: 15px;
+  font-size: 52px;
   font-weight: 800;
-  color: #fff;
-  background: var(--blue);
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--blue);
+  margin-bottom: 14px;
 }
 .step h3 {
   font-size: 18px;
@@ -577,6 +637,13 @@ html.js .reveal.in {
   .features,
   .steps {
     grid-template-columns: 1fr;
+  }
+  .detail-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .sec-head.left {
+    max-width: 100%;
   }
   .show-row {
     grid-template-columns: 1fr;
