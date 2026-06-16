@@ -65,7 +65,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {/* Arm the hidden reveal start-state before paint so there is no FOUC.
             Without JS the `.reveal` elements stay visible (no-JS / crawler safe). */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');if('scrollRestoration' in history)history.scrollRestoration='manual';",
+          }}
+        />
         {/* React 19 hoists these <link>s into <head> and dedupes them. */}
         <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
         {/* 폰트 로딩 소스는 seed-design 단일 소스(seedFonts). 큰 숫자 폰트는 페인트 전 preload. */}
