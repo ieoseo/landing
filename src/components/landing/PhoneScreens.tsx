@@ -1,6 +1,6 @@
 import { seedIcons } from "@/lib/seedIcons";
 
-export type PhoneVariant = "today" | "tasks" | "focus" | "plan";
+export type PhoneVariant = "today" | "focus" | "plan";
 
 /** seed path(서브패스 ' M')를 stroke svg 로 렌더. */
 function SeedIcon({
@@ -175,98 +175,6 @@ function PlanHeader() {
           <SeedIcon name="bell" strokeWidth={1.9} />
         </div>
       </div>
-    </div>
-  );
-}
-
-function Tasks() {
-  return (
-    <div className="ps">
-      <div className="ps-body">
-        <PlanHeader />
-        <div className="ps-seg" style={{ margin: "10px 0" }}>
-          <span>캘린더</span>
-          <span className="on">할 일</span>
-        </div>
-        <div className="ps-week">
-          {["월", "화", "수", "목", "금", "토", "일"].map((w, i) => (
-            <b key={w} className={i === 0 ? "on" : undefined}>
-              {w}
-              <u>{i + 1}</u>
-            </b>
-          ))}
-        </div>
-
-        <div className="ps-card" style={{ marginTop: 12 }}>
-          <div className="ps-summary">
-            <div className="s">
-              <b className="ps-brand">
-                27.5<span> 시간</span>
-              </b>
-              <small>계획</small>
-            </div>
-            <div className="s g">
-              <b className="ps-brand">
-                16<span> 시간</span>
-              </b>
-              <small>완료</small>
-            </div>
-            <div className="s o">
-              <b className="ps-brand">
-                6.5<span> 시간</span>
-              </b>
-              <small>밀린 시간</small>
-            </div>
-          </div>
-          <div className="ps-bar">
-            <i />
-          </div>
-          <div className="ps-note">
-            이번 주 <b>58% 완료</b> · 밀린 일은 주말로 옮겨드릴게요
-          </div>
-        </div>
-
-        <div className="ps-debt" style={{ marginTop: 10 }}>
-          <div className="ic">
-            <SeedIcon name="carryForward" strokeWidth={2} />
-          </div>
-          <div className="tx">
-            <b>
-              미룬 시간 <span className="ps-chip late">계속 밀림 1건</span>
-            </b>
-            <small>총 5시간 40분 · 여유 있는 날로 옮겨드릴게요</small>
-          </div>
-        </div>
-
-        <div className="ps-sec ps-row">
-          <span>옮겨온 할 일</span>
-          <span className="more">미룬 시간 ›</span>
-        </div>
-        <div className="ps-flow">
-          <div className="ps-task">
-            <div className="box">
-              <span className="ck" />
-              <div className="tt">
-                <b>이력서 1차 수정</b>
-                <small>45분 · 취업 · 지난주 금요일에서 옮겨옴</small>
-              </div>
-              <span className="ps-chip move">옮김</span>
-            </div>
-          </div>
-          <div className="ps-task">
-            <div className="box">
-              <span className="ck" />
-              <div className="tt">
-                <b>블로그 회고 글쓰기</b>
-                <small>1시간 · 기타</small>
-              </div>
-              <span className="ps-chip late">밀림</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <Fab />
-      <Nav active="플랜" />
     </div>
   );
 }
@@ -453,7 +361,7 @@ function Plan() {
 
 /** 쇼케이스 폰 안에 코드로 그린 앱 화면(캡쳐 대체). */
 export function PhoneScreen({ variant }: { variant: PhoneVariant }) {
-  const Screen = { today: Today, tasks: Tasks, focus: Focus, plan: Plan }[variant];
+  const Screen = { today: Today, focus: Focus, plan: Plan }[variant];
   return (
     <div className="phone-screen">
       <Screen />

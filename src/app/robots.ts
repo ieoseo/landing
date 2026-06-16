@@ -1,9 +1,8 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
 // Required for metadata routes under `output: 'export'`.
 export const dynamic = "force-static";
-
-const SITE_URL = "https://ieoseo.app";
 
 /** Generates a static robots.txt at build time (output: export). */
 export default function robots(): MetadataRoute.Robots {
