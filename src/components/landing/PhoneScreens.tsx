@@ -393,6 +393,11 @@ function Plan() {
           <span>일간</span>
         </div>
         <div className="ps-cal">
+          <div className="ps-cal-nav">
+            <SeedIcon name="chevL" strokeWidth={2.2} />
+            <span>2026년 6월</span>
+            <SeedIcon name="chevR" strokeWidth={2.2} />
+          </div>
           <div className="hd">
             {["일", "월", "화", "수", "목", "금", "토"].map((d, i) => (
               <span key={d} className={i === 0 ? "sun" : i === 6 ? "sat" : undefined}>
