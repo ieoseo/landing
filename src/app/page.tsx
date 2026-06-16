@@ -4,7 +4,6 @@ import { RevealController } from "@/components/RevealController";
 import { Hero } from "@/components/landing/Hero";
 import { Trust } from "@/components/landing/Trust";
 import { Showcase } from "@/components/landing/Showcase";
-import { Subscriptions } from "@/components/landing/Subscriptions";
 import { Features } from "@/components/landing/Features";
 import { TimeDebt } from "@/components/landing/TimeDebt";
 import { Steps } from "@/components/landing/Steps";
@@ -18,7 +17,6 @@ export default function Home() {
         <Hero />
         <Trust />
         <Showcase />
-        <Subscriptions />
         <Features />
         <TimeDebt />
         <Steps />

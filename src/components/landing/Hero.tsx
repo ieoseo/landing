@@ -22,9 +22,6 @@ export function Hero() {
           </p>
           <div className="cta-row">
             <StoreBadges />
-            <a className="btn btn-outline btn-lg" href="#features">
-              앱 미리보기
-            </a>
           </div>
           <p className="cta-note">설치 없이 웹에서 바로 써보거나, 스토어에서 앱으로 받으세요</p>
         </div>
