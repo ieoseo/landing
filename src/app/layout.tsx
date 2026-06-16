@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { seedFonts } from "@/lib/seedFonts";
+import { SITE_URL } from "@/lib/site";
 import "@/styles/seed-tokens.css";
 import "@/styles/tokens.css";
 import "@/styles/seed-components.css";
@@ -8,7 +9,6 @@ import "@/styles/landing.css";
 import "@/styles/phone.css";
 import "@/styles/doc.css";
 
-const SITE_URL = "https://ieoseo.app";
 const TITLE = "이어서 — D-Day · 할 일 · 집중을 하나로";
 const DESCRIPTION =
   "못 한 일은 사라지지 않고 여유 있는 날로 이어서. D-Day, 할 일, 집중 타이머를 하나로 묶은 자기관리 앱.";
