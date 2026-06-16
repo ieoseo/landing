@@ -1,17 +1,14 @@
-import type { CSSProperties, ReactNode } from "react";
+import type { ReactNode } from "react";
 
-type Feature = {
-  title: string;
-  desc: string;
-  iconStyle: CSSProperties;
-  paths: ReactNode;
-};
+type Detail = { k: string; title: string; desc: string; paths: ReactNode };
 
-const FEATURES: Feature[] = [
+/* 줌인 디테일 — Showcase(메인 화면)·TimeDebt(시그니처)와 겹치지 않게, 화면 단위가
+   아니라 "그 안에 담긴 세부 기능"을 짧은 사실형으로만 나열한다. 아이콘은 서로 다른 글리프. */
+const DETAILS: Detail[] = [
   {
-    title: "D-Day 카운트다운",
-    desc: "시험·자격증·마감을 등록하면 가장 임박한 목표가 홈에 크게 떠요. 단일 D-Day, 기간 진행률, 기간 D-Day 세 가지 타입을 지원해요.",
-    iconStyle: { background: "var(--hue-blue-subtle)", color: "var(--blue)" },
+    k: "dday",
+    title: "D-Day 3타입",
+    desc: "단일 · 기간 진행률 · 기간 D-Day",
     paths: (
       <>
         <circle cx="12" cy="13" r="8" />
@@ -20,81 +17,76 @@ const FEATURES: Feature[] = [
     ),
   },
   {
-    title: "할 일 관리",
-    desc: "예상 소요시간을 적어두면 하루 계획이 시간 단위로 잡혀요. 반복 할 일, 카테고리, 완료 체크까지 가볍게.",
-    iconStyle: { background: "var(--hue-green-subtle)", color: "var(--success-fg)" },
-    paths: <path d="M4 6h2v2H4zM4 11h2v2H4zM4 16h2v2H4zM9 7h11M9 12h11M9 17h11" />,
+    k: "repeat",
+    title: "반복 할 일",
+    desc: "주간 · 월간 · 연간 규칙",
+    paths: <path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5" />,
   },
   {
-    title: "집중 타이머",
-    desc: "포모도로로 할 일을 실제로 실행하게 도와요. 집중·휴식 사이클, 오늘 집중 통계, 4가지 타이머 스킨을 제공해요.",
-    iconStyle: { background: "var(--hue-blue-subtle)", color: "var(--blue)" },
+    k: "estimate",
+    title: "예상 소요시간",
+    desc: "하루 계획을 시간 단위로",
+    paths: <path d="M4 6h2v2H4zM4 11h2v2H4zM4 16h2v2H4zM9 7h11M9 12h7M9 17h10" />,
+  },
+  {
+    k: "skin",
+    title: "타이머 스킨 4종",
+    desc: "링 · 미니멀 · 리퀴드 · 플립",
     paths: (
       <>
-        <circle cx="12" cy="13" r="9" />
-        <path d="M12 8v5l3 2M9 2h6" />
+        <circle cx="12" cy="12" r="8" />
+        <path d="M12 12 8 8M12 12v5" />
       </>
     ),
   },
   {
-    title: "통합 캘린더",
-    desc: "앱 안 일정과 Google·Apple·Notion 외부 일정을 한 화면에. 월·주·일 뷰로 출처까지 구분해서 보여줘요.",
-    iconStyle: { background: "var(--hue-sky-subtle)", color: "var(--info-fg)" },
+    k: "calendar",
+    title: "외부 캘린더",
+    desc: "Google · Apple · Notion 연동",
     paths: (
       <>
         <rect x="4" y="5" width="16" height="16" rx="2" />
-        <path d="M3 9h18M7 3v3M17 3v3" />
-      </>
-    ),
-  },
-  {
-    title: "시간 빌려쓰기",
-    desc: "오늘 못 한 일은 '미룬 시간'으로 쌓여 여유 있는 날로 자동 이월돼요. 일을 놓쳐도 사라지지 않아요.",
-    iconStyle: { background: "var(--hue-orange-subtle)", color: "var(--warning-fg)" },
-    paths: (
-      <>
-        <path d="M21 11V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h6" />
         <path d="M3 9h18M8 2v4M16 2v4" />
-        <path d="M14 18h6m0 0-2.5-2.5M20 18l-2.5 2.5" />
       </>
     ),
   },
   {
+    k: "review",
     title: "주간 리뷰",
-    desc: "완료율, 연속 달성(스트릭), 요일별 실행, 카테고리 분포를 돌아보며 다음 주를 더 잘 계획해요.",
-    iconStyle: { background: "var(--hue-violet-subtle)", color: "var(--violet-fg)" },
-    paths: <path d="M3 3v18h18M7 14l3-3 3 3 4-5" />,
+    desc: "완료율 · 스트릭 · 카테고리 분포",
+    paths: <path d="M4 4v16h16M8 15l3-3 2 2 4-5" />,
   },
 ];
 
-/** Core feature grid ("핵심 기능"). */
+/** Zoomed-in detail grid — the granular capabilities, kept compact and factual. */
 export function Features() {
   return (
-    <section className="block" style={{ paddingTop: 0 }}>
+    <section className="block detail-block">
       <div className="wrap">
-        <div className="sec-head reveal">
-          <div className="sec-tag">핵심 기능</div>
-          <h2>이 모든 걸, 하나의 앱에서</h2>
-          <p>마감 추적부터 할 일 실행까지, 따로 쓰던 앱들을 이어서 하나로 묶었어요.</p>
+        <div className="sec-head left reveal">
+          <div className="sec-tag">디테일까지</div>
+          <h2>작지만, 빠짐없이</h2>
+          <p>매일 쓰는 데 필요한 것들을 군더더기 없이 담았어요.</p>
         </div>
-        <div className="features">
-          {FEATURES.map((feature) => (
-            <div className="fcard reveal" key={feature.title}>
-              <div className="ic" style={feature.iconStyle}>
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.9"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  {feature.paths}
-                </svg>
+        <div className="detail-grid">
+          {DETAILS.map((d, i) => (
+            <div className="dcard reveal" style={{ transitionDelay: `${(i % 3) * 70}ms` }} key={d.k}>
+              <svg
+                className="dic"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                {d.paths}
+              </svg>
+              <div>
+                <h3>{d.title}</h3>
+                <p>{d.desc}</p>
               </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.desc}</p>
             </div>
           ))}
         </div>

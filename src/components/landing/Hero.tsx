@@ -23,7 +23,7 @@ export function Hero() {
           <div className="cta-row">
             <StoreBadges />
           </div>
-          <p className="cta-note">설치 없이 웹에서 바로 써보거나, 스토어에서 앱으로 받으세요</p>
+          <p className="cta-note">지금은 Android 내부 테스트 중이에요. 정식 출시를 준비하고 있어요.</p>
         </div>
         <div className="phone-stage">
           <div className="glow" />
